@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="content">
+    <div class="container mt-5">
+        <h2 class="text-center">Müşteri Ekle</h2>
+        <form method="post" class="mt-4">
+            {% csrf_token %}
+            <div class="form-group">
+                <label>İlan:</label>
+                <input type="text" class="form-control" value="{{ ilan.ilan_basligi }}" readonly>
+                <input type="hidden" name="ilan" value="{{ ilan.id }}">  <!-- İlan ID'sini gizli alanda gönder -->
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.konusulanTarih.id_for_label }}">Konuşulan Tarih:</label>
+                {{ form.konusulanTarih }}
+                {% if form.konusulanTarih.errors %}
+                    <div class="alert alert-danger">{{ form.konusulanTarih.errors }}</div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.musteriAdi.id_for_label }}">Müşteri Adı:</label>
+                {{ form.musteriAdi }}
+                {% if form.musteriAdi.errors %}
+                    <div class="alert alert-danger">{{ form.musteriAdi.errors }}</div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.musteriNo.id_for_label }}">Müşteri Numarası:</label>
+                {{ form.musteriNo }}
+                {% if form.musteriNo.errors %}
+                    <div class="alert alert-danger">{{ form.musteriNo.errors }}</div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label>Gördü Mü:</label>
+                {{ form.gorduMu }} Gördü
+                {% if form.gorduMu.errors %}
+                    <div class="alert alert-danger">{{ form.gorduMu.errors }}</div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label>Teklif Verdi Mi:</label>
+                {{ form.teklif }} Verdi
+                {% if form.teklif.errors %}
+                    <div class="alert alert-danger">{{ form.teklif.errors }}</div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.mesaj.id_for_label }}">Mesaj:</label>
+                {{ form.mesaj }}
+                {% if form.mesaj.errors %}
+                    <div class="alert alert-danger">{{ form.mesaj.errors }}</div>
+                {% endif %}
+            </div>
+
+            {% if form.errors %}
+                <div class="alert alert-danger">
+                    <strong>Lütfen hataları düzeltin:</strong>
+                    <ul>
+                        {% for field in form %}
+                            {% for error in field.errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        {% endfor %}
+                        {% for error in form.non_field_errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+            
+            <button type="submit" class="btn btn-primary">Ekle</button>
+            <a href="{% url 'musteri' %}" class="btn btn-secondary">İptal</a>
+        </form>
+    </div>
+</section>
+{% endblock %}

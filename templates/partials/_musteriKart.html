@@ -1,0 +1,225 @@
+<!-- ! content start -->
+<section class="content">
+  <div class="container">
+    <div class="content-main">
+      <div class="content-card">
+        <div class="mb-2 mt-2">
+          <button class="btn btn-danger btn-sm" id="delete-button" title="Sil" disabled>
+            <i class="bi bi-trash"></i> Sil
+          </button>
+        </div>
+
+        <div class="table-container" style="overflow-y: auto;">
+          <table class="table2 table-striped" id="listing-table">
+            <thead>
+              <tr class="text-center">
+                <th scope="col">Seç</th>
+                <th scope="col">İlk konuşma</th>
+                <th scope="col">Daire</th>
+                <th scope="col">Müşteri Adı</th>
+                <th scope="col">Numara</th>
+                <th scope="col">Gördü / Görmedi</th>
+                <th scope="col">Teklif</th>
+                <th scope="col">Konuşulan</th>
+                <th scope="col">Son Güncellenme</th>
+                <th scope="col">Düzenle</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for musteri in musteriler %}
+                <tr>
+                  <td><input type="checkbox" class="row-selector" data-id="{{ musteri.id }}"></td>
+                  <td>{{ musteri.konusulanTarih }}</td>
+                  <td>{{ musteri.ilan.ilan_basligi }}</td>
+                  <td>{{ musteri.musteriAdi }}</td>
+                  <td>{{ musteri.musteriNo }}</td>
+                  <td>{{ musteri.gorduMu|yesno:"Gördü,Görmedi" }}</td>
+                  <td>{{ musteri.teklif|yesno:"Verdi,Vermedi" }}</td>
+                  <td>{{ musteri.mesaj }}</td>
+                  <td>{{ musteri.songuncellemeTarihi|date:"d.m.Y H:i" }}</td>
+                  <td><button class="btn btn-warning btn-sm edit-button" data-id="{{ musteri.id }}" data-bs-toggle="modal" data-bs-target="#editModal">Düzenle</button></td>
+                </tr>
+              {% empty %}
+                <tr>
+                  <td colspan="10" class="text-center">Henüz müşteri bulunmamaktadır.</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Modal for Editing -->
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editModalLabel">Müşteri Düzenle</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="edit-form">
+          <input type="hidden" id="musteri-id">
+          <div class="mb-3">
+            <label for="musteri-adi" class="form-label">Müşteri Adı</label>
+            <input type="text" class="form-control" id="musteri-adi" required>
+          </div>
+          <div class="mb-3">
+            <label for="musteri-no" class="form-label">Numara</label>
+            <input type="text" class="form-control" id="musteri-no" required>
+          </div>
+          <div class="mb-3">
+            <label for="gordu-mu" class="form-label">Gördü mü?</label>
+            <select class="form-select" id="gordu-mu">
+              <option value="True">Gördü</option>
+              <option value="False">Görmedi</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="teklif" class="form-label">Teklif</label>
+            <select class="form-select" id="teklif">
+              <option value="True">Verdi</option>
+              <option value="False">Vermedi</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="musteri-mesaj" class="form-label">Mesaj</label>
+            <textarea class="form-control" id="musteri-mesaj" rows="3"></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">İptal</button>
+        <button type="button" class="btn btn-primary" id="save-edit">Kaydet</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- ! content end -->
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const checkboxes = document.querySelectorAll(".row-selector");
+    const deleteButton = document.getElementById("delete-button");
+
+    // Checkbox değişimi ile butonu aktif et
+    checkboxes.forEach(checkbox => {
+        checkbox.addEventListener("change", function() {
+            const anyChecked = Array.from(checkboxes).some(cb => cb.checked);
+            deleteButton.disabled = !anyChecked; // En az bir checkbox seçili ise butonu aktif et
+        });
+    });
+
+    // Silme işlemi
+    deleteButton.addEventListener("click", function () {
+        const selectedIds = Array.from(checkboxes)
+            .filter(cb => cb.checked)
+            .map(cb => cb.getAttribute('data-id'));
+
+        if (selectedIds.length > 0) {
+            if (confirm("Seçilen müşterileri silmek istediğinize emin misiniz?")) {
+                fetch("{% url 'delete_musteriler' %}", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRFToken": "{{ csrf_token }}"
+                    },
+                    body: JSON.stringify({ musteri_ids: selectedIds })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        selectedIds.forEach(id => {
+                            const row = document.querySelector(`input[data-id="${id}"]`).closest('tr');
+                            row.remove();
+                        });
+                    } else {
+                        alert("Silme işlemi başarısız oldu.");
+                    }
+                })
+                .catch(error => {
+                    alert("Silme işlemi başarısız oldu.");
+                });
+            }
+        }
+    });
+
+    // Düzenleme işlemi
+    const editButtons = document.querySelectorAll(".edit-button");
+    const musteriIdInput = document.getElementById("musteri-id");
+    const musteriAdiInput = document.getElementById("musteri-adi");
+    const musteriNoInput = document.getElementById("musteri-no");
+    const gorduMuSelect = document.getElementById("gordu-mu");
+    const teklifSelect = document.getElementById("teklif");
+    const musteriMesajInput = document.getElementById("musteri-mesaj");
+
+    editButtons.forEach(button => {
+        button.addEventListener("click", function () {
+            const musteriId = button.getAttribute("data-id");
+
+            fetch(`/get_musteri/${musteriId}/`)
+                .then(response => response.json())
+                .then(data => {
+                    musteriIdInput.value = data.id;
+                    musteriAdiInput.value = data.musteriAdi;
+                    musteriNoInput.value = data.musteriNo;
+                    gorduMuSelect.value = data.gorduMu ? "True" : "False"; // Boolean değerini ayarlama
+                    teklifSelect.value = data.teklif ? "True" : "False"; // Teklif durumunu ayarlama
+                    musteriMesajInput.value = data.mesaj;
+                })
+                .catch(error => {
+                    alert("Müşteri bilgilerini alma işlemi başarısız oldu.");
+                });
+        });
+    });
+
+    // Kaydet butonuna tıklama
+    document.getElementById("save-edit").addEventListener("click", function () {
+        const musteriId = musteriIdInput.value;
+        const musteriAdi = musteriAdiInput.value;
+        const musteriNo = musteriNoInput.value;
+        const gorduMu = gorduMuSelect.value;
+        const teklif = teklifSelect.value; // Teklif değeri
+        const musteriMesaj = musteriMesajInput.value;
+
+        fetch(`/edit_musteri/${musteriId}/`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": "{{ csrf_token }}"
+            },
+            body: JSON.stringify({
+                musteriAdi: musteriAdi,
+                musteriNo: musteriNo,
+                gorduMu: gorduMu,
+                teklif: teklif, // Teklif değeri
+                mesaj: musteriMesaj
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Güncellenen bilgileri tabloda güncelle
+                const row = document.querySelector(`input[data-id="${musteriId}"]`).closest('tr');
+                row.cells[3].innerText = musteriAdi;
+                row.cells[4].innerText = musteriNo;
+                row.cells[5].innerText = gorduMu === "True" ? "Gördü" : "Görmedi"; 
+                row.cells[6].innerText = teklif === "True" ? "Verdi" : "Vermedi"; 
+                row.cells[7].innerText = musteriMesaj;
+
+                // Modalı kapat
+                var modal = bootstrap.Modal.getInstance(document.getElementById('editModal'));
+                modal.hide();
+            } else {
+                alert("Güncelleme işlemi başarısız oldu.");
+            }
+        })
+        .catch(error => {
+            alert("Güncelleme işlemi başarısız oldu.");
+        });
+    });
+  });
+</script>

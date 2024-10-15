@@ -1,0 +1,385 @@
+/*! base start  */
+@import url("https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,500&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Jost", sans-serif;
+}
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+a {
+  text-decoration: none;
+  color: #000;
+  
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+}
+.logo {
+  font-size: 24px;
+  font-weight: 500;
+  display: flex;
+}
+
+button{
+ 
+  cursor: pointer;
+  border: none;
+}
+body{
+  overflow-x: hidden;
+  /* position: relative; */
+}
+
+.btn{
+  display: inline-block;
+  padding: 0 25px;
+  line-height: 40px;
+  font-weight: 500;
+  border: 1px solid black;
+  transition: .2s ease all;
+}
+.btn-no{
+  display: inline-block;
+  padding: 0 25px;
+  line-height: 30px;
+  font-weight: 400;
+  border: 1px solid black;
+  transition: .2s ease all;
+  border-radius: 10px;
+}
+
+
+.btn-sm{
+  line-height: 33px;
+}
+
+.btn-lg{
+  line-height: 45px;
+}
+
+.btn-primary{
+  background-color: #1367ef;
+  color: #fff;
+  border-color: #1367ef;
+}
+
+
+.btn-primary:hover{
+  background-color: #fff;
+  color: #1367ef;
+}
+
+.btn-dark{
+  background-color: black;
+  color: #fff;
+  border-color: black;
+}
+
+
+.btn-dark:hover{
+  background-color: white;
+  color: black;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="number"]{
+  outline: none;
+  border: 1px solid #dee0ea;
+  padding: 8px 8px 8px 15px;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="email"]:focus,
+input[type="number"]:focus{
+  border-color: gray;
+}
+
+input[type="number"]::-webkit-inner-spin-button{
+  opacity: 1;
+}
+.container {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+}
+/*! base end  */
+/*! header start  */
+
+header {
+  border-bottom: 1px solid #dee0ea;
+  
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background-color: #fff;
+}
+
+.header-row {
+  height: 90px;
+  display: flex;
+  align-items: center;
+}
+.header-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.header-left .logo {
+  font-size: 24px;
+  font-weight: 500;
+  display: flex;
+}
+.header-center .navigation .menu-list {
+  display: flex;
+  column-gap: 30px;
+  /* gap: 30px; */
+ 
+  align-items: center;
+}
+.header-center .menu-list .menu-list-item {
+  display: flex;
+  align-items: center;
+  position: relative;
+  height: 90px;
+}
+
+.header-center .menu-list .menu-link {
+  font-size: 14px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  position: relative;
+}
+.header-center .menu-list .menu-link::after {
+  content: "";
+  width: 0;
+  height: 1px;
+  background-color: #1367ef;
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  transform: translate(-50%);
+  transition: 0.2s ease width;
+}
+.header-center .menu-list .menu-list-item:hover .menu-link::after {
+  width: 100%;
+}
+.header-center .menu-list .menu-link.active::after {
+  width: 100%;
+}
+.header-center .menu-list i {
+  font-size: 12px;
+}
+.header-right .header-right-links {
+  display: flex;
+  align-items: center;
+  column-gap: 16px;
+}
+.header-right .bi-person {
+  font-size: 23px;
+}
+.header-right .toggle-button {
+  border: none;
+  background-color: transparent;
+}
+.header-right i {
+  font-size: 18px;
+  display: flex;
+}
+.header-right .header-cart {
+  position: relative;
+}
+.header-right .header-cart-link .header-cart-count {
+  width: 16px;
+  height: 16px;
+  background-color: #1367ef;
+  color: white;
+  font-size: 10px;
+  border-radius: 100%;
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 500;
+}
+.header-mobile {
+  font-size: 24px;
+  cursor: pointer;
+  display: none;
+}
+
+.header-center .bi-x-circle {
+  display: none;
+}
+
+/*! header end  */
+
+
+@media (max-width: 1200px) {
+  .container {
+    max-width: 992px;
+  }
+}
+@media (max-width: 992px) {
+  .container {
+    max-width: 768px;
+  }
+}
+@media (max-width: 768px) {
+  .container {
+    max-width: 576px;
+  }
+}
+
+
+@media (max-width: 576px) {
+  .container {
+    max-width: 400px;
+  }
+}
+
+@media (max-width: 420px) {
+  .container {
+    max-width: 350px;
+  }
+}
+
+/*! header responsive */
+@media (max-width: 650px) {
+  .header-center {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    height: 100vh;
+    background-color: #fff;
+    border-right: 1px solid #dee0ea;
+  }
+
+
+  .header-center .bi-x-circle {
+    display: inline-block;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 20px;
+    cursor: pointer;
+  }
+
+  .header-center .menu-list {
+    flex-direction: column;
+    padding: 50px 75px;
+  
+
+  }
+
+  .header-mobile {
+    display: inline-block;
+  }
+
+  header .menu-dropdown-wrapper{
+    display: none !important;
+  }
+
+  header .menu-list i {
+    display: none;
+  }
+  header .menu-list-item a {
+    font-size: 16px !important;
+  }
+}
+
+
+/*! search responsive  */
+
+@media (max-width: 992px){
+  .modal-search .modal-wrapper{
+    max-width: 370px;
+  }
+    .modal-search .results{
+      grid-template-columns: 1fr;
+    }
+} 
+/*! Header Responsive End */
+
+
+
+
+.denemeForm{
+  width: 10px;
+}
+
+/* İLAN  TABLO START */
+.table {
+  width: 100%; /* Tablo genişliği %100 olacak */
+  table-layout: auto; /* Tablonun otomatik boyutlandırmasını sağlar */
+  border-collapse: collapse; /* Hücreler arasındaki boşluğu kaldırır */
+}
+
+.table th, .table td {
+  padding: 8px; /* Hücre içi boşluk */
+  border: 1px solid #ddd; /* Hücreler arasındaki kenarlık */
+  vertical-align: top; /* Metinlerin üstten başlamasını sağlar */
+}
+
+/* İlan başlığı sütununu genişlet */
+.table th:nth-child(3), .table td:nth-child(3) {
+  width: 200px; /* İlan Başlığı sütununun genişliği */
+  white-space: nowrap; /* Metin sarmasını engeller */
+  overflow: hidden; /* Taşan metni gizler */
+  text-overflow: ellipsis; /* Taşan metin için '...' gösterir */
+}
+.table .thkonusulan{
+  width: 200px; /* İlan Başlığı sütununun genişliği */
+  white-space: nowrap; /* Metin sarmasını engeller */
+  overflow: hidden; /* Taşan metni gizler */
+  text-overflow: ellipsis; /* Taşan metin için '...' gösterir */
+}
+
+/* İLAN TABLO END */
+
+/*? MÜŞTERİ  TABLO START */
+.table2 {
+  width: 100%; /* Tablo genişliği %100 olacak */
+  table-layout: auto; /* Tablonun otomatik boyutlandırmasını sağlar */
+  border-collapse: collapse; /* Hücreler arasındaki boşluğu kaldırır */
+}
+
+.table2 th, .table2 td {
+  padding: 8px; /* Hücre içi boşluk */
+  border: 1px solid #ddd; /* Hücreler arasındaki kenarlık */
+  vertical-align: top; /* Metinlerin üstten başlamasını sağlar */
+}
+
+/* İlan başlığı sütununu genişlet */
+.table2 th:nth-child(3), .table2 td:nth-child(3) {
+  width: 150px; /* İlan Başlığı sütununun genişliği */
+  white-space: nowrap; /* Metin sarmasını engeller */
+  overflow: hidden; /* Taşan metni gizler */
+  text-overflow: ellipsis; /* Taşan metin için '...' gösterir */
+}
+.table2 th:nth-child(8), .table2 td:nth-child(8) {
+  width: 300px; /* İlan Başlığı sütununun genişliği */
+  white-space: nowrap; /* Metin sarmasını engeller */
+  overflow: hidden; /* Taşan metni gizler */
+  text-overflow: ellipsis; /* Taşan metin için '...' gösterir */
+}
+
+
+/*? MÜŞTERİTABLO END */

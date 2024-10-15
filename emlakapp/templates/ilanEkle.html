@@ -1,0 +1,214 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+    
+    <form method="POST" enctype="multipart/form-data" class="ilan-form mt-3">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="ilan_basligi">İlan Başlığı:</label>
+                {{ form.ilan_basligi }}
+                {{ form.ilan_basligi.errors }}
+            </div>
+
+            <div class="form-group">
+                <label for="mahalle">Mahalle:</label>
+                {{ form.mahalle }}
+                {{ form.mahalle.errors }}
+            </div>
+
+            <div class="form-group">
+                <label for="m2_brut">Brüt Metrekare:</label>
+                {{ form.m2_brut }}
+                {{ form.m2_brut.errors }}
+            </div>
+
+            <div class="form-group">
+                <label for="oda_sayisi">Oda Sayısı:</label>
+                {{ form.oda_sayisi }}
+                {{ form.oda_sayisi.errors }}
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="bina_yasi">Bina Yaşı:</label>
+                {{ form.bina_yasi }}
+                {{ form.bina_yasi.errors }}
+            </div>
+
+            <div class="form-group">
+                <label for="bulunduğu_kat">Bulunduğu Kat:</label>
+                {{ form.bulunduğu_kat }}
+                {{ form.bulunduğu_kat.errors }}
+            </div>
+
+            <div class="form-group">
+                <label for="kat_sayisi">Kat Sayısı:</label>
+                {{ form.kat_sayisi }}
+                {{ form.kat_sayisi.errors }}
+            </div>
+
+            <div class="form-group">
+                <label for="isitma_turu">Isıtma Türü:</label>
+                {{ form.isitma_turu }}
+                {{ form.isitma_turu.errors }}
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="banyo_sayisi">Banyo Sayısı:</label>
+                {{ form.banyo_sayisi }}
+                {{ form.banyo_sayisi.errors }}
+            </div>
+
+            <div class="form-group">
+                <label for="balkon">Balkon:</label>
+                {{ form.balkon }}
+                {{ form.balkon.errors }}
+            </div>
+
+            <div class="form-group">
+                <label for="asansor">Asansör:</label>
+                {{ form.asansor }}
+                {{ form.asansor.errors }}
+            </div>
+
+            <div class="form-group">
+                <label for="esya_durumu">Eşya Durumu:</label>
+                {{ form.esya_durumu }}
+                {{ form.esya_durumu.errors }}
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="kullanim_durumu">Kullanım Durumu:</label>
+                {{ form.kullanim_durumu }}
+                {{ form.kullanim_durumu.errors }}
+            </div>
+
+            <div class="form-group">
+                <label for="kimden">Kimden:</label>
+                {{ form.kimden }}
+                {{ form.kimden.errors }}
+            </div>
+
+            <div class="form-group">
+                <label for="ilan_tarihi">İlan Tarihi:</label>
+                {{ form.ilan_tarihi }}
+                {{ form.ilan_tarihi.errors }}
+            </div>
+
+            <div class="form-group">
+                <label for="foto1">Fotoğraf 1:</label>
+                {{ form.foto1 }}
+                {{ form.foto1.errors }}
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="foto2">Fotoğraf 2:</label>
+                {{ form.foto2 }}
+                {{ form.foto2.errors }}
+            </div>
+
+            <div class="form-group">
+                <label for="foto3">Fotoğraf 3:</label>
+                {{ form.foto3 }}
+                {{ form.foto3.errors }}
+            </div>
+
+            <div class="form-group">
+                <label for="foto4">Fotoğraf 4:</label>
+                {{ form.foto4 }}
+                {{ form.foto4.errors }}
+            </div>
+
+            <div class="form-group">
+                <label for="foto5">Fotoğraf 5:</label>
+                {{ form.foto5 }}
+                {{ form.foto5.errors }}
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="foto6">Fotoğraf 6:</label>
+                {{ form.foto6 }}
+                {{ form.foto6.errors }}
+            </div>
+
+            <div class="form-group">
+                <label for="fiyat">Fiyat:</label>
+                {{ form.fiyat }}
+                {{ form.fiyat.errors }}
+            </div>
+        </div>
+
+        <button type="submit" class="submit-button">İlanı Ekle</button>
+    </form>
+
+    <style>
+        .ilan-form {
+            max-width: 800px; /* Formun maksimum genişliği */
+            margin: auto; /* Ortaya yerleştirme */
+            padding: 20px; /* İçerik için boşluk */
+            background-color: #f9f9f9; /* Arka plan rengi */
+            border-radius: 8px; /* Kenar yuvarlama */
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Gölge efekti */
+        }
+        .form-row {
+            display: flex; /* Flex kutusu kullanarak yan yana dizme */
+            flex-wrap: wrap; /* Alan bittiğinde bir alt satıra geçsin */
+            margin-bottom: 15px; /* Satırların altındaki boşluk */
+        }
+        .form-group {
+            flex: 1 1 23%; /* Her grup %23 genişlikte olsun */
+            margin: 5px; /* Alanlar arasındaki boşluk */
+        }
+        label {
+            font-weight: bold; /* Etiketleri kalın yap */
+            display: block; /* Etiketleri blok düzende göster */
+            margin-bottom: 5px; /* Etiket ve alan arasındaki boşluk */
+        }
+        input[type="text"], input[type="number"], select, input[type="file"] {
+            width: 100%; /* Genişlik ayarı */
+            padding: 10px; /* İçerik için boşluk */
+            border: 1px solid #ccc; /* Kenar rengi */
+            border-radius: 4px; /* Kenar yuvarlama */
+            font-size: 16px; /* Yazı boyutu */
+        }
+        select {
+            font-size: 14px; /* Seçim kutusunun yazı boyutunu küçült */
+        }
+        button.submit-button {
+            background-color: #4CAF50; /* Buton rengi */
+            color: white; /* Yazı rengi */
+            padding: 10px 15px; /* İçerik için boşluk */
+            border: none; /* Kenar yok */
+            border-radius: 4px; /* Kenar yuvarlama */
+            cursor: pointer; /* İşaretçi */
+            font-size: 16px; /* Yazı boyutu */
+            transition: background-color 0.3s; /* Renk geçişi efekti */
+        }
+        button.submit-button:hover {
+            background-color: #45a049; /* Hover efekti */
+        }
+    </style>
+
+    <script>
+        // İlan tarihi için tarih seçici ekleme
+        document.addEventListener('DOMContentLoaded', function() {
+            const ilanTarihiInput = document.getElementById('id_ilan_tarihi');
+            if (ilanTarihiInput) {
+                ilanTarihiInput.type = 'date'; // Tarih girişi tipi
+            }
+        });
+    </script>
+{% endblock content %}

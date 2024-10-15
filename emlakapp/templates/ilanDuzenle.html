@@ -1,0 +1,217 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+    <h1>İlan Düzenle</h1>
+    <form method="POST" enctype="multipart/form-data" class="ilan-form">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="ilan_basligi">İlan Başlığı:</label>
+                {{ form.ilan_basligi }}
+                <div class="error">{{ form.ilan_basligi.errors }}</div>
+            </div>
+
+            <div class="form-group">
+                <label for="mahalle">Mahalle:</label>
+                {{ form.mahalle }}
+                <div class="error">{{ form.mahalle.errors }}</div>
+            </div>
+
+            <div class="form-group">
+                <label for="m2_brut">Brüt Metrekare:</label>
+                {{ form.m2_brut }}
+                <div class="error">{{ form.m2_brut.errors }}</div>
+            </div>
+
+            <div class="form-group">
+                <label for="oda_sayisi">Oda Sayısı:</label>
+                {{ form.oda_sayisi }}
+                <div class="error">{{ form.oda_sayisi.errors }}</div>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="bina_yasi">Bina Yaşı:</label>
+                {{ form.bina_yasi }}
+                <div class="error">{{ form.bina_yasi.errors }}</div>
+            </div>
+
+            <div class="form-group">
+                <label for="bulunduğu_kat">Bulunduğu Kat:</label>
+                {{ form.bulunduğu_kat }}
+                <div class="error">{{ form.bulunduğu_kat.errors }}</div>
+            </div>
+
+            <div class="form-group">
+                <label for="kat_sayisi">Kat Sayısı:</label>
+                {{ form.kat_sayisi }}
+                <div class="error">{{ form.kat_sayisi.errors }}</div>
+            </div>
+
+            <div class="form-group">
+                <label for="isitma_turu">Isıtma Türü:</label>
+                {{ form.isitma_turu }}
+                <div class="error">{{ form.isitma_turu.errors }}</div>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="banyo_sayisi">Banyo Sayısı:</label>
+                {{ form.banyo_sayisi }}
+                <div class="error">{{ form.banyo_sayisi.errors }}</div>
+            </div>
+
+            <div class="form-group">
+                <label for="balkon">Balkon:</label>
+                {{ form.balkon }}
+                <div class="error">{{ form.balkon.errors }}</div>
+            </div>
+
+            <div class="form-group">
+                <label for="asansor">Asansör:</label>
+                {{ form.asansor }}
+                <div class="error">{{ form.asansor.errors }}</div>
+            </div>
+
+            <div class="form-group">
+                <label for="esya_durumu">Eşya Durumu:</label>
+                {{ form.esya_durumu }}
+                <div class="error">{{ form.esya_durumu.errors }}</div>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="kullanim_durumu">Kullanım Durumu:</label>
+                {{ form.kullanim_durumu }}
+                <div class="error">{{ form.kullanim_durumu.errors }}</div>
+            </div>
+
+            <div class="form-group">
+                <label for="kimden">Kimden:</label>
+                {{ form.kimden }}
+                <div class="error">{{ form.kimden.errors }}</div>
+            </div>
+
+            <div class="form-group">
+                <label for="ilan_tarihi">İlan Tarihi:</label>
+                {{ form.ilan_tarihi }}
+                <div class="error">{{ form.ilan_tarihi.errors }}</div>
+            </div>
+
+            <div class="form-group">
+                <label for="foto1">Fotoğraf 1:</label>
+                {{ form.foto1 }}
+                <div class="error">{{ form.foto1.errors }}</div>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="foto2">Fotoğraf 2:</label>
+                {{ form.foto2 }}
+                <div class="error">{{ form.foto2.errors }}</div>
+            </div>
+
+            <div class="form-group">
+                <label for="foto3">Fotoğraf 3:</label>
+                {{ form.foto3 }}
+                <div class="error">{{ form.foto3.errors }}</div>
+            </div>
+
+            <div class="form-group">
+                <label for="foto4">Fotoğraf 4:</label>
+                {{ form.foto4 }}
+                <div class="error">{{ form.foto4.errors }}</div>
+            </div>
+
+            <div class="form-group">
+                <label for="foto5">Fotoğraf 5:</label>
+                {{ form.foto5 }}
+                <div class="error">{{ form.foto5.errors }}</div>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="foto6">Fotoğraf 6:</label>
+                {{ form.foto6 }}
+                <div class="error">{{ form.foto6.errors }}</div>
+            </div>
+
+            <div class="form-group">
+                <label for="fiyat">Fiyat:</label>
+                {{ form.fiyat }}
+                <div class="error">{{ form.fiyat.errors }}</div>
+            </div>
+        </div>
+
+        <button type="submit" class="submit-button">Kaydet </button>
+    </form>
+
+    <style>
+        .ilan-form {
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .form-row {
+            display: flex;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+        }
+        .form-group {
+            flex: 1 1 23%;
+            margin: 5px;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="text"], input[type="number"], select, input[type="file"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        select {
+            font-size: 14px;
+        }
+        button.submit-button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        button.submit-button:hover {
+            background-color: #45a049;
+        }
+        .error {
+            color: red; /* Error message color */
+            font-size: 14px; /* Error message font size */
+        }
+    </style>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const ilanTarihiInput = document.getElementById('id_ilan_tarihi');
+            if (ilanTarihiInput) {
+                ilanTarihiInput.type = 'date';
+            }
+        });
+    </script>
+{% endblock content %}

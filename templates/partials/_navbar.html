@@ -1,0 +1,92 @@
+{% load static %}
+<!--! header start  -->
+ <header>
+    
+  <div class="header-row">
+      <div class="container">
+        <div class="header-wrapper">
+          <div class="header-mobile">
+            <i class="bi bi-list" id="btn-menu"></i>
+          </div>
+          <div class="header-left">
+            <a href="/"   class="logo active">DOĞU EMLAK</a>
+          </div>
+          <div class="header-center" id="sidebar">
+            <nav class="navigation">
+              <ul class="menu-list">
+                <li class="menu-list-item">
+                  <a href="/" class="menu-link {% if request.path == '/' %}active{% endif %}">
+                    Anasayfa
+                    <i class="bi bi-chevron-down"></i>
+                  </a>
+                </li>
+            
+                <li class="menu-list-item megamenu-wrapper">
+                  <a href="{% url 'ilanEkle' %}" class="menu-link {% if request.path == '/ilan-ekle' %}active{% endif %}">
+                    İlan Ekle
+                    <i class="bi bi-chevron-down"></i>
+                  </a>
+                  <div class="menu-dropdown-megamenu">
+                    <div class="megamenu-links">
+                      <div class="megamenu-products">
+                        <!-- Buraya içerik ekleyin -->
+                      </div>
+                    </div>
+                  </div>
+                </li>
+            
+                <li class="menu-list-item">
+                  <a href="{% url 'musteri' %}" class="menu-link {% if request.path == '/musteri' %}active{% endif %}">
+                    Müşteri
+                    <i class="bi bi-chevron-down"></i>
+                  </a>
+                </li>
+                
+              </ul>
+            </nav>
+
+            <i class="bi-x-circle" id="close-sidebar"></i>
+          </div>
+          
+          
+          <div class="header-right">
+            <div class="header-right-links ">
+           
+              <ul class="menu-list">
+                <li class="menu-list-item">
+                  <a href="{% url "userLogout" %}" class="menu-link">
+                    Çıkış Yap
+                    
+                  </a>
+                </li>
+              </ul>
+              <!-- <div class="header-cart">
+              
+                  <i class="bi bi-bag"></i>
+                  <span class="header-cart-count"> {{count}} </span>
+                </a>
+              </div> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+  <!--! header end  -->
+
+  <script>
+    //! Navbar sidebar start
+const btnOpenSidebar = document.querySelector("#btn-menu");
+const sidebar = document.querySelector("#sidebar");
+const btnCloseSidebar = document.querySelector("#close-sidebar");
+btnOpenSidebar.addEventListener("click", function () {
+sidebar.style.left = "0";
+});
+
+btnCloseSidebar.addEventListener("click", function () {
+sidebar.style.left = "-100%";
+});
+
+//! Navbar sidebar end
+  </script>
+  

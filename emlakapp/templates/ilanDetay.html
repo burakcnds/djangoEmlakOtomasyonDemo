@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <!-- Sol tarafta fotoğraflar -->
+        <div class="col-md-6">
+            <div id="ilan-fotograflar" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    {% if ilan.foto1 %}
+                    <div class="carousel-item active">
+                        <img src="{{ ilan.foto1.url }}" class="d-block w-100" alt="Fotoğraf 1">
+                    </div>
+                    {% endif %}
+                    {% if ilan.foto2 %}
+                    <div class="carousel-item">
+                        <img src="{{ ilan.foto2.url }}" class="d-block w-100" alt="Fotoğraf 2">
+                    </div>
+                    {% endif %}
+                    {% if ilan.foto3 %}
+                    <div class="carousel-item">
+                        <img src="{{ ilan.foto3.url }}" class="d-block w-100" alt="Fotoğraf 3">
+                    </div>
+                    {% endif %}
+                    {% if ilan.foto4 %}
+                    <div class="carousel-item">
+                        <img src="{{ ilan.foto4.url }}" class="d-block w-100" alt="Fotoğraf 4">
+                    </div>
+                    {% endif %}
+                    {% if ilan.foto5 %}
+                    <div class="carousel-item">
+                        <img src="{{ ilan.foto5.url }}" class="d-block w-100" alt="Fotoğraf 5">
+                    </div>
+                    {% endif %}
+                    {% if ilan.foto6 %}
+                    <div class="carousel-item">
+                        <img src="{{ ilan.foto6.url }}" class="d-block w-100" alt="Fotoğraf 6">
+                    </div>
+                    {% endif %}
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#ilan-fotograflar" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#ilan-fotograflar" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Sağ tarafta ilan bilgileri -->
+        <div class="col-md-6">
+            <h2>{{ ilan.ilan_basligi }}</h2>
+            <p><strong>Mahalle:</strong> {{ ilan.mahalle }}</p>
+            <p><strong>Metrekare Brüt:</strong> {{ ilan.m2_brut }} m²</p>
+            <p><strong>Oda Sayısı:</strong> {{ ilan.oda_sayisi }}</p>
+            <p><strong>Bina Yaşı:</strong> {{ ilan.bina_yasi }}</p>
+            <p><strong>Bulunduğu Kat:</strong> {{ ilan.bulunduğu_kat }}</p>
+            <p><strong>Kat Sayısı:</strong> {{ ilan.kat_sayisi }}</p>
+            <p><strong>Isıtma Türü:</strong> {{ ilan.isitma_turu }}</p>
+            <p><strong>Banyo Sayısı:</strong> {{ ilan.banyo_sayisi }}</p>
+            <p><strong>Balkon:</strong> {% if ilan.balkon %}Var{% else %}Yok{% endif %}</p>
+            <p><strong>Asansör:</strong> {% if ilan.asansor %}Var{% else %}Yok{% endif %}</p>
+            <p><strong>Eşya Durumu:</strong> {{ ilan.esya_durumu }}</p>
+            <p><strong>Kullanım Durumu:</strong> {{ ilan.kullanim_durumu }}</p>
+            <p><strong>Kimden:</strong> {{ ilan.kimden }}</p>
+            <p><strong>İlan Tarihi:</strong> {{ ilan.ilan_tarihi }}</p>
+            <p><strong>Fiyat:</strong> {{ ilan.formatted_fiyat }}</p>
+        </div>
+    </div>
+</div>
+{% endblock %}
